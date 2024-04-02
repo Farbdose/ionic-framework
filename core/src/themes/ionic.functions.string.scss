@@ -169,7 +169,8 @@
       $elements: str-split($selector, " ");
 
       @each $element in $elements {
-        @if str-contains($element, ":host") {
+        // ":host" also matches ":host-context" leading to mangled code -> check for ":host-context" 
+        @if str-contains($element, ":host") and not str-contains($selector, ":host-context")  {
           $updated-element: '';
 
           // Replace the :host with the addHostSelector:
